@@ -35,14 +35,33 @@ public class SimpleStackImpl implements SimpleStack
 
     public Item peek() throws EmptyStackException
     {
-        Item item = arrayItem.get(arrayItem.size());
+        Item item = new Item();
+
+        try
+        {
+            item = arrayItem.get(arrayItem.size());
+        }
+        catch (EmptyStackException exception)
+        {
+            System.err.println("EmptyStackException");
+        }
+
         return item;
+
     }
 
     public Item pop() throws EmptyStackException
     {
-        Item item = arrayItem.get(arrayItem.size());
-        arrayItem.remove(arrayItem.size());
-        return item;
+        Item item = new Item();
+        try
+        {
+            item = arrayItem.get(arrayItem.size());
+            arrayItem.remove(arrayItem.size());
+        }
+        catch (EmptyStackException exception)
+        {
+            System.err.println("EmptyStackException");
+        }
+        return  item;
     }
 }
