@@ -1,87 +1,94 @@
 package jper.test;
 
-import jper.Item;
-import jper.SimpleStack;
 import jper.SimpleStackImpl;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
+import jper.Item;
 import org.junit.Test;
+
+import java.util.EmptyStackException;
+
+import static org.junit.Assert.*;
 
 public class SimpleStackImplTest {
 
-    SimpleStack simpleStack;
+    @Test
+    public void testIsEmpty() throws Exception {
+        SimpleStackImpl stack= new SimpleStackImpl();
+        //code under test
+        stack.isEmpty();
 
-    @Before
-    public void setUp() throws Exception
-    {
-        simpleStack = new SimpleStackImpl();
-        System.out.println("Je suis executé AVANT chaque test.");
-    }
-
-    @After
-    public void tearDown() throws Exception
-    {
-        System.out.println("Je suis executé APRES chaque test.");
+        assertEquals("stack must be empty", 0, stack.getSize());
     }
 
     @Test
-    public void testIsEmpty() throws Exception
-    {
-        Assert.assertEquals(true,simpleStack.isEmpty());
-        simpleStack.push(new Item(42));
-        Assert.assertEquals(false,simpleStack.isEmpty());
+    public void testGetSize() throws Exception {
+        SimpleStackImpl stack = new SimpleStackImpl();
+        Item item = new Item();
+        stack.push(item);
+        //code under test
+
+        int i = stack.getSize();
+        //assertions
+
+        assertEquals("The stack constain 1 item",1, i);
     }
 
     @Test
-    public void testGetSize() throws Exception
-    {
-        Assert.assertEquals(0,simpleStack.getSize());
-        simpleStack.push(new Item(42));
-        Assert.assertEquals(1,simpleStack.getSize());
-        simpleStack.push(new Item(445));
-        Assert.assertEquals(2,simpleStack.getSize());
-    }
+    public void testPush() throws Exception {
+        SimpleStackImpl stack = new SimpleStackImpl();
+        Item item = new Item();
 
-    @Test
-    public void testPush() throws Exception
-    {
-        Item item1 = new Item(45);
-        Assert.assertEquals(0,simpleStack.getSize());
-        simpleStack.push(item1);
-        Assert.assertEquals(1,simpleStack.getSize());
-        Item item2 = simpleStack.peek();
-        Assert.assertEquals(item2.getValue(),45);
-        Assert.assertEquals(item2.getValue(),item1.getValue());
+        // Code under test
+        stack.push(item);
+
+        // assertions (oracle)
+        assertFalse("The stack must be not empty", stack.isEmpty());
+        assertEquals("The stack constains 1 item", 1, stack.getSize());
+        assertSame("The pushed item is on top of the stack", item, stack.peek());
 
     }
 
     @Test
-    public void testPeek() throws Exception
-    {
-        Item item1 = new Item(45);
-        Assert.assertEquals(0,simpleStack.getSize());
-        simpleStack.push(item1);
-        Assert.assertEquals(1,simpleStack.getSize());
-        Item item2 = simpleStack.peek();
-        Assert.assertEquals(1,simpleStack.getSize());
-        Assert.assertEquals(item2.getValue(),45);
-        Assert.assertEquals(item2.getValue(),item1.getValue());
+    public void testPeek() throws Exception {
 
+        SimpleStackImpl stack = new SimpleStackImpl();
+        Item item = new Item(2);
+        stack.push(item);
+        //Code under test
+
+        stack.peek();
+
+        //assertions
+
+        assertSame("The item must be the same", item, stack.peek());
     }
 
     @Test
-    public void testPop() throws Exception
-    {
-        Item item1 = new Item(45);
-        Assert.assertEquals(0,simpleStack.getSize());
-        simpleStack.push(item1);
-        Assert.assertEquals(1,simpleStack.getSize());
-        Item item2 = simpleStack.pop();
-        Assert.assertEquals(0,simpleStack.getSize());
-        Assert.assertEquals(1,simpleStack.getSize());
-        Assert.assertEquals(item2.getValue(),45);
-        Assert.assertEquals(item2.getValue(),item1.getValue());
+    public void testPop() throws Exception {
+        SimpleStackImpl stack = new SimpleStackImpl();
+        Item item = new Item(1);
+        stack.push(item);
 
+        //code under test
+
+        stack.pop();
+
+        //assertions
+        assertTrue("The Stack must be empty", stack.isEmpty());
+        assertEquals("The Stack must be contains 0 element",0,stack.getSize());
+
+    }
+}
+
+    @Test(expected = EmptyStackException.class)
+    public void testPeekException() throws EmptyStackException{
+        SimpleStackImpl stack = new SimpleStackImpl();
+        stack.peek();
+
+    }
+
+    @Test(expected = EmptyStackException.class)
+    public void testPopException() throws EmptyStackException{
+        SimpleStackImpl stack = new SimpleStackImpl();
+        stack.pop();
     }
 }
