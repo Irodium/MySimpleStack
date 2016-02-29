@@ -11,6 +11,11 @@ public class SimpleStackImpl implements SimpleStack
 {
     public ArrayList<Item> arrayItem;
 
+    public SimpleStackImpl()
+    {
+        arrayItem = new ArrayList<Item>();
+    }
+
     public boolean isEmpty()
     {
         if (arrayItem.isEmpty())
@@ -35,33 +40,25 @@ public class SimpleStackImpl implements SimpleStack
 
     public Item peek() throws EmptyStackException
     {
-        Item item = new Item();
 
-        try
+        if (getSize() > 0)
         {
-            item = arrayItem.get(arrayItem.size());
-        }
-        catch (EmptyStackException exception)
-        {
-            System.err.println("EmptyStackException");
+            return arrayItem.get(getSize() - 1);
+        } else {
+            throw new EmptyStackException();
         }
 
-        return item;
 
     }
 
     public Item pop() throws EmptyStackException
     {
-        Item item = new Item();
-        try
-        {
-            item = arrayItem.get(arrayItem.size());
-            arrayItem.remove(arrayItem.size());
+        if (getSize() > 0) {
+            Item item = new Item(arrayItem.get(getSize() - 1));
+            arrayItem.remove(getSize() - 1);
+            return item;
+        } else {
+            throw new EmptyStackException();
         }
-        catch (EmptyStackException exception)
-        {
-            System.err.println("EmptyStackException");
-        }
-        return  item;
     }
 }

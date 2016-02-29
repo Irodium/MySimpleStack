@@ -17,8 +17,10 @@ public class Item
         name = "#0";
     }
 
-    public int getValue()
+    public Item(Item it)
     {
-        return value;
+        this.value = it.value;
+        this.name = it.name;
     }
+
 }

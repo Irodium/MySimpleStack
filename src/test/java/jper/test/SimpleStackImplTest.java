@@ -29,7 +29,7 @@ public class SimpleStackImplTest {
         int i = stack.getSize();
         //assertions
 
-        assertEquals("The stack constain 1 item",1, i);
+        assertEquals("The stack contain 1 item",1, i);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class SimpleStackImplTest {
 
         // assertions (oracle)
         assertFalse("The stack must be not empty", stack.isEmpty());
-        assertEquals("The stack constains 1 item", 1, stack.getSize());
+        assertEquals("The stack contains 1 item", 1, stack.getSize());
         assertSame("The pushed item is on top of the stack", item, stack.peek());
 
     }
@@ -77,7 +77,7 @@ public class SimpleStackImplTest {
         assertEquals("The Stack must be contains 0 element",0,stack.getSize());
 
     }
-}
+
 
     @Test(expected = EmptyStackException.class)
     public void testPeekException() throws EmptyStackException{
